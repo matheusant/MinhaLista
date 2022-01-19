@@ -1,16 +1,17 @@
 package com.example.minhalista
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.minhalista.data.MyPreferences
 import com.example.minhalista.databinding.ActivityHomeBinding
+import com.example.minhalista.ui.ListActivity
 
-class HomeActivity: AppCompatActivity() {
+class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
-    private var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +25,13 @@ class HomeActivity: AppCompatActivity() {
 
     private fun setupUI() {
         binding.btnChangeTheme.setOnClickListener { chooseThemeDialog() }
+        binding.btnNext.setOnClickListener { nextActivity(ListActivity::class.java) }
+        checboxChoseTheme()
+    }
+
+    private fun nextActivity(activity: Class<*>) {
+        val intent = Intent(this, activity)
+        startActivity(intent)
     }
 
     private fun chooseThemeDialog() {
@@ -35,7 +43,7 @@ class HomeActivity: AppCompatActivity() {
 
         builder.setSingleChoiceItems(styles, checkedItem) { dialog, which ->
 
-            when(which) {
+            when (which) {
                 0 -> {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
                     MyPreferences(this).darkMode = 0
@@ -60,6 +68,36 @@ class HomeActivity: AppCompatActivity() {
 
         val dialog = builder.create()
         dialog.show()
+    }
+
+    private fun checboxChoseTheme() {
+
+        switchCheckedMode()
+
+        binding.swChangeTheme.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+                MyPreferences(this).darkMode = 1
+                MyPreferences(this).switchState = true
+                delegate.applyDayNight()
+            } else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+                MyPreferences(this).darkMode = 2
+                MyPreferences(this).switchState = false
+                delegate.applyDayNight()
+            }
+        }
+    }
+
+    private fun switchCheckedMode() {
+        when(MyPreferences(this).switchState) {
+            true -> {
+                binding.swChangeTheme.isChecked = true
+            }
+            false -> {
+                binding.swChangeTheme.isChecked = false
+            }
+        }
     }
 
     private fun checkTheme() {
