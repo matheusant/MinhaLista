@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.list.client.ClientListFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_client_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/products_list_holder"/>
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fb_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="8dp"
+            android:src="@drawable/ic_add"
+            app:fabSize="mini"
+            app:fab_colorNormal="#367C25"
+            app:fab_colorPressed="#266817"
+            app:fab_label="Adicionar"
+            app:fab_shadowColor="#43FD00"
+            app:fab_showShadow="true"
+            android:layout_gravity="bottom|end"/>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,7 @@
+package com.example.minhalista.ui.list.products
+
+import androidx.lifecycle.ViewModel
+
+class ProductsListViewModel : ViewModel() {
+    // TODO: Implement the ViewModel
+}

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.list.client.ClientListFragment">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_client_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp"
+        app:menu_backgroundColor="@android:color/transparent"
+        app:menu_colorNormal="#607890"
+        app:menu_colorPressed="#2945fc"
+        app:menu_colorRipple="#3216e2"
+        app:menu_labels_colorNormal="#fff"
+        app:menu_labels_ellipsize="end"
+        app:menu_labels_showShadow="true"
+        app:menu_labels_singleLine="true"
+        app:menu_labels_textColor="#000"
+        app:menu_shadowColor="@android:color/holo_blue_bright"
+        app:menu_showShadow="true">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fb_add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            app:fab_colorNormal="#367C25"
+            app:fab_colorPressed="#266817"
+            app:fab_colorRipple="#195b09"
+            app:fab_label="Adicionar"
+            app:fab_shadowColor="#43FD00"
+            app:fab_showShadow="true" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/fb_delete_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:fabSize="mini"
+            app:fab_colorNormal="#B22318"
+            app:fab_colorPressed="#E8004A"
+            app:fab_colorRipple="#C20024"
+            app:fab_label="Deletar tudo"
+            app:fab_shadowColor="#FF0000"
+            app:fab_showShadow="true" />
+
+    </com.github.clans.fab.FloatingActionMenu>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

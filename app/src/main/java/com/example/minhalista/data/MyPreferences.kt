@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
-class MyPreferences(context: Context?) {
+class MyPreferences(context: Context) {
 
     companion object {
         private const val DARK_STATUS = "DARK_STATUS"

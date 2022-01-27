@@ -4,8 +4,11 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/matheus/AndroidStudioProjects/MinhaLista/app/src/main/res/layout/activity_home.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/matheus/AndroidStudioProjects/MinhaLista/app/src/main/res/layout/activity_list.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/matheus/AndroidStudioProjects/MinhaLista/app/src/main/res/layout/activity_list.xml" value="0.33" />
         <entry key="..\:/Users/matheus/AndroidStudioProjects/MinhaLista/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/matheus/AndroidStudioProjects/MinhaLista/app/src/main/res/layout/client_list_fragment.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/matheus/AndroidStudioProjects/MinhaLista/app/src/main/res/layout/products_list_fragment.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/matheus/AndroidStudioProjects/MinhaLista/app/src/main/res/layout/products_list_holder.xml" value="0.36666666666666664" />
       </map>
     </option>
   </component>
