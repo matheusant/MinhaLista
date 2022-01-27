@@ -13,6 +13,9 @@ class ProductAdapter(
     private val products: List<ProductsEntity>
 ): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
+    var onItemClick: ((entity: ProductsEntity) -> Unit)? = null
+    var onItemLongClick: ((entity: ProductsEntity) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.products_list_holder, parent, false)
@@ -35,6 +38,15 @@ class ProductAdapter(
             val price = String.format("%.2f", prods.price).replace(".", ",")
             tvProdName.text = prods.name
             tvProdPrice.text = price
+
+            itemView.setOnClickListener {
+                onItemClick?.invoke(prods)
+            }
+
+            itemView.setOnLongClickListener {
+                onItemLongClick?.invoke(prods)
+                true
+            }
         }
     }
 }

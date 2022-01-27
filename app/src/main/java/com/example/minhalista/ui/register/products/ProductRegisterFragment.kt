@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.minhalista.data.db.AppDatabase
 import com.example.minhalista.data.db.dao.ProductDAO
 import com.example.minhalista.databinding.ProductRegisterFragmentBinding
@@ -32,6 +33,8 @@ class ProductRegisterFragment : Fragment() {
         }
     }
 
+    private val args: ProductRegisterFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +47,7 @@ class ProductRegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setObserves()
+        setupUI()
         setListeners()
     }
 
@@ -52,12 +56,12 @@ class ProductRegisterFragment : Fragment() {
             val name = binding.etName.text.toString()
             val price = binding.etPrice.text.toString()
 
-            viewModel.addOrUpdateProducts(name, price.toDouble())
+            viewModel.addOrUpdateProducts(name, price.toDouble(), args.products?.id ?: 0)
         }
     }
 
     private fun setObserves() {
-        viewModel.subsStateEventData.observe(viewLifecycleOwner) { state ->
+        viewModel.prodsStateEventData.observe(viewLifecycleOwner) { state ->
             when (state) {
                 is ProductsRegisterViewModel.ProdState.Inserted,
                 is ProductsRegisterViewModel.ProdState.Update -> {
@@ -72,6 +76,14 @@ class ProductRegisterFragment : Fragment() {
 
         viewModel.messageEventData.observe(viewLifecycleOwner) {
             Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setupUI() {
+        args.products?.let { products ->
+            binding.btnRegister.text = "Atualizar"
+            binding.etName.setText(products.name)
+            binding.etPrice.setText(products.price.toString())
         }
     }
 

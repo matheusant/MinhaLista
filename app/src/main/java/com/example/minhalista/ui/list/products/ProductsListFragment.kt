@@ -49,22 +49,45 @@ class ProductsListFragment : Fragment() {
 
     private fun setObserves() {
         viewModel.allProdsEvent.observe(viewLifecycleOwner) { getProds ->
-            val prodAdapter = ProductAdapter(getProds)
+            val prodAdapter = ProductAdapter(getProds).apply {
+
+                onItemClick = { prods ->
+                    val directions = ProductsListFragmentDirections
+                        .actionProductsListFragmentToProductRegisterFragment(prods)
+                    findNavController().navigate(directions)
+                }
+
+                onItemLongClick = { prods ->
+                    deleteProd(prods.id)
+                }
+            }
 
             binding.rvProductList.run {
                 setHasFixedSize(true)
                 adapter = prodAdapter
             }
         }
+
+        viewModel.deleteProdEvent.observe(viewLifecycleOwner) {
+            refreshList()
+        }
+    }
+
+    private fun refreshList() {
+        viewModel.getAllProds()
     }
 
     private fun setupUI() {
 
     }
 
+    private fun deleteProd(id: Long) {
+        viewModel.deleteProd(id)
+    }
+
     override fun onResume() {
         super.onResume()
-        viewModel.getAllProds()
+        refreshList()
     }
 
     private fun setListeners() {
