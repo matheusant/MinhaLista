@@ -26,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
     private fun setupUI() {
         binding.btnChangeTheme.setOnClickListener { chooseThemeDialog() }
         binding.btnNext.setOnClickListener { nextActivity(ListActivity::class.java) }
-        checboxChoseTheme()
+//        checboxChoseTheme()
     }
 
     private fun nextActivity(activity: Class<*>) {
@@ -70,35 +70,35 @@ class HomeActivity : AppCompatActivity() {
         dialog.show()
     }
 
-    private fun checboxChoseTheme() {
+//    private fun checboxChoseTheme() {
+//
+//        switchCheckedMode()
+//
+//        binding.swChangeTheme.setOnCheckedChangeListener { _, isChecked ->
+//            if (isChecked) {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+//                MyPreferences(this).darkMode = 1
+//                MyPreferences(this).switchState = true
+//                delegate.applyDayNight()
+//            } else {
+//                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+//                MyPreferences(this).darkMode = 2
+//                MyPreferences(this).switchState = false
+//                delegate.applyDayNight()
+//            }
+//        }
+//    }
 
-        switchCheckedMode()
-
-        binding.swChangeTheme.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                MyPreferences(this).darkMode = 1
-                MyPreferences(this).switchState = true
-                delegate.applyDayNight()
-            } else {
-                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                MyPreferences(this).darkMode = 2
-                MyPreferences(this).switchState = false
-                delegate.applyDayNight()
-            }
-        }
-    }
-
-    private fun switchCheckedMode() {
-        when(MyPreferences(this).switchState) {
-            true -> {
-                binding.swChangeTheme.isChecked = true
-            }
-            false -> {
-                binding.swChangeTheme.isChecked = false
-            }
-        }
-    }
+//    private fun switchCheckedMode() {
+//        when(MyPreferences(this).switchState) {
+//            true -> {
+//                binding.swChangeTheme.isChecked = true
+//            }
+//            false -> {
+//                binding.swChangeTheme.isChecked = false
+//            }
+//        }
+//    }
 
     private fun checkTheme() {
         when (MyPreferences(this).darkMode) {

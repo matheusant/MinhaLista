@@ -14,6 +14,7 @@ import com.example.minhalista.data.db.AppDatabase
 import com.example.minhalista.data.db.dao.ProductDAO
 import com.example.minhalista.data.db.entity.ProductsEntity
 import com.example.minhalista.databinding.ProductsListFragmentBinding
+import com.example.minhalista.extensions.navigateWithAnimations
 import com.example.minhalista.repository.DatabaseDataSource
 import com.example.minhalista.repository.ProductRepository
 
@@ -54,7 +55,7 @@ class ProductsListFragment : Fragment() {
                 onItemClick = { prods ->
                     val directions = ProductsListFragmentDirections
                         .actionProductsListFragmentToProductRegisterFragment(prods)
-                    findNavController().navigate(directions)
+                    findNavController().navigateWithAnimations(directions)
                 }
 
                 onItemLongClick = { prods ->
@@ -92,7 +93,7 @@ class ProductsListFragment : Fragment() {
 
     private fun setListeners() {
         binding.fbAdd.setOnClickListener {
-            findNavController().navigate(R.id.action_productsListFragment_to_productRegisterFragment)
+            findNavController().navigateWithAnimations(R.id.action_productsListFragment_to_productRegisterFragment)
         }
     }
 }
