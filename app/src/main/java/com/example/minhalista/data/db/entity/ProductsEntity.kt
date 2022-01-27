@@ -1,4 +1,4 @@
-package com.example.minhalista.data.db
+package com.example.minhalista.data.db.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

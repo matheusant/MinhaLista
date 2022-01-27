@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/productRegisterFragment"
-        android:name="com.example.minhalista.ui.register.ProductRegisterFragment"
+        android:name="com.example.minhalista.ui.register.products.ProductRegisterFragment"
         android:label="Produto"
         tools:layout="@layout/product_register_fragment" />
 

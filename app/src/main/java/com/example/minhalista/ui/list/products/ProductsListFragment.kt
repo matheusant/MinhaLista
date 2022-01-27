@@ -1,19 +1,35 @@
 package com.example.minhalista.ui.list.products
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.minhalista.R
-import com.example.minhalista.data.db.ProductsEntity
+import com.example.minhalista.data.db.AppDatabase
+import com.example.minhalista.data.db.dao.ProductDAO
+import com.example.minhalista.data.db.entity.ProductsEntity
 import com.example.minhalista.databinding.ProductsListFragmentBinding
+import com.example.minhalista.repository.DatabaseDataSource
+import com.example.minhalista.repository.ProductRepository
 
 class ProductsListFragment : Fragment() {
 
     private lateinit var binding: ProductsListFragmentBinding
+
+    private val viewModel: ProductsListViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                val prodsDao: ProductDAO = AppDatabase.getDatabase(requireContext()).prodsDao
+                val repository: ProductRepository = DatabaseDataSource(prodsDao)
+                return ProductsListViewModel(repository) as T
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,23 +42,29 @@ class ProductsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setObserves()
         setupUI()
         setListeners()
     }
 
-    private fun setupUI() {
-        val prodAdapter = ProductAdapter(
-            listOf(
-                ProductsEntity(1, "Coca Cola", 9.49),
-                ProductsEntity(2, "Fanta", 8.49),
-                ProductsEntity(2, "Wafer", 3.49),
-            )
-        )
+    private fun setObserves() {
+        viewModel.allProdsEvent.observe(viewLifecycleOwner) { getProds ->
+            val prodAdapter = ProductAdapter(getProds)
 
-        binding.rvProductList.run {
-            setHasFixedSize(true)
-            adapter = prodAdapter
+            binding.rvProductList.run {
+                setHasFixedSize(true)
+                adapter = prodAdapter
+            }
         }
+    }
+
+    private fun setupUI() {
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getAllProds()
     }
 
     private fun setListeners() {

@@ -18,7 +18,7 @@
             android:id="@+id/tv_prod_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="80"
+            android:layout_weight="70"
             android:textSize="20sp"
             tools:text="Coca Cola 2L" />
 
@@ -27,7 +27,7 @@
             android:id="@+id/tv_prod_price"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20"
+            android:layout_weight="30"
             android:textSize="20sp"
             tools:text="10,00" />
 

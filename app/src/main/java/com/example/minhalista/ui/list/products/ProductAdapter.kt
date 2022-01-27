@@ -6,7 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.minhalista.R
-import com.example.minhalista.data.db.ProductsEntity
+import com.example.minhalista.data.db.entity.ProductsEntity
+import java.text.DecimalFormat
 
 class ProductAdapter(
     private val products: List<ProductsEntity>
@@ -27,12 +28,13 @@ class ProductAdapter(
 
     inner class ProductViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
-        private val tvProdName: TextView =itemView.findViewById(R.id.tv_prod_name)
-        private val tvProdPrice: TextView =itemView.findViewById(R.id.tv_prod_price)
+        private val tvProdName: TextView = itemView.findViewById(R.id.tv_prod_name)
+        private val tvProdPrice: TextView = itemView.findViewById(R.id.tv_prod_price)
 
         fun bindHolder(prods: ProductsEntity) {
+            val price = String.format("%.2f", prods.price).replace(".", ",")
             tvProdName.text = prods.name
-            tvProdPrice.text = prods.price.toString()
+            tvProdPrice.text = price
         }
     }
 }
