@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.example.minhalista.R
 import com.example.minhalista.data.db.ProductsEntity
 import com.example.minhalista.databinding.ProductsListFragmentBinding
@@ -25,6 +26,11 @@ class ProductsListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupUI()
+        setListeners()
+    }
+
+    private fun setupUI() {
         val prodAdapter = ProductAdapter(
             listOf(
                 ProductsEntity(1, "Coca Cola", 9.49),
@@ -33,10 +39,15 @@ class ProductsListFragment : Fragment() {
             )
         )
 
-        binding.rvClientList.run {
+        binding.rvProductList.run {
             setHasFixedSize(true)
             adapter = prodAdapter
         }
     }
 
+    private fun setListeners() {
+        binding.fbAdd.setOnClickListener {
+            findNavController().navigate(R.id.action_productsListFragment_to_productRegisterFragment)
+        }
+    }
 }

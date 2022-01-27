@@ -8,6 +8,16 @@
     <fragment
         android:id="@+id/productsListFragment"
         android:name="com.example.minhalista.ui.list.products.ProductsListFragment"
-        android:label="ProductsListFragment" />
+        android:label="Produtos"
+        tools:layout="@layout/products_list_fragment">
+        <action
+            android:id="@+id/action_productsListFragment_to_productRegisterFragment"
+            app:destination="@id/productRegisterFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/productRegisterFragment"
+        android:name="com.example.minhalista.ui.register.ProductRegisterFragment"
+        android:label="Produto"
+        tools:layout="@layout/product_register_fragment" />
 
 </navigation>

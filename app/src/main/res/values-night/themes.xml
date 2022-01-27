@@ -20,6 +20,6 @@
     </style>
 
     <style name="ToolbarStyle.Title" parent="TextAppearance.AppCompat.Title">
-        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
 </resources>
