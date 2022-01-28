@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.example.minhalista.data.MyPreferences
 import com.example.minhalista.databinding.ActivityHomeBinding
+import com.example.minhalista.ui.ClientActivity
 import com.example.minhalista.ui.ListActivity
 
 class HomeActivity : AppCompatActivity() {
@@ -25,7 +26,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun setupUI() {
         binding.btnChangeTheme.setOnClickListener { chooseThemeDialog() }
-        binding.btnNext.setOnClickListener { nextActivity(ListActivity::class.java) }
+        binding.btnNext.setOnClickListener { nextActivity(ClientActivity::class.java) }
 //        checboxChoseTheme()
     }
 
