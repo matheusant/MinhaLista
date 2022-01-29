@@ -6,15 +6,32 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import com.example.minhalista.R
+import com.example.minhalista.data.db.AppDatabase
 import com.example.minhalista.data.db.entity.ClientEntity
 import com.example.minhalista.databinding.ClientListFragmentBinding
 import com.example.minhalista.extensions.navigateWithAnimations
+import com.example.minhalista.repository.ClientRepository
+import com.example.minhalista.repository.DatabaseDataSource
+import com.example.minhalista.repository.ProductRepository
+import com.example.minhalista.ui.list.products.ProductsListViewModel
 
 class ClientListFragment : Fragment() {
 
     private lateinit var binding: ClientListFragmentBinding
+
+    private val viewModel: ClientListViewModel by viewModels {
+        object : ViewModelProvider.Factory {
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                val database = AppDatabase.getDatabase(requireContext())
+                val repository: ClientRepository = DatabaseDataSource(database)
+                return ClientListViewModel(repository) as T
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,17 +48,36 @@ class ClientListFragment : Fragment() {
             findNavController().navigateWithAnimations(R.id.action_clientListFragment_to_clientRegisterFragment)
         }
 
-        val clientAdapter = ClientAdapter(
-            listOf(
-                ClientEntity(1, "Matheus", 150.55, "18/07/2020 16:33:14"),
-                ClientEntity(2, "Maria", 350.55, "21/04/2021 16:33:14"),
-                ClientEntity(3, "Josué", 3050.55, "15/10/2021 16:33:14"),
-            )
-        )
+        setObserves()
+    }
 
-        binding.rvClientList.run {
-            setHasFixedSize(true)
-            adapter = clientAdapter
+    private fun setObserves() {
+        viewModel.allClientEventData.observe(viewLifecycleOwner) { getClients ->
+            val clientAdapter = ClientAdapter(getClients).apply {
+                onItemLongClick = {
+                    deleteClient(it.id)
+                }
+            }
+
+            binding.rvClientList.run {
+                setHasFixedSize(true)
+                adapter = clientAdapter
+            }
         }
+
+        viewModel.deleteEventData.observe(viewLifecycleOwner) {
+            refreshList()
+        }
+    }
+
+    private fun deleteClient(id: Long) {
+        viewModel.deleteClient(id)
+    }
+
+    private fun refreshList() = viewModel.getAllClients()
+
+    override fun onResume() {
+        super.onResume()
+        refreshList()
     }
 }

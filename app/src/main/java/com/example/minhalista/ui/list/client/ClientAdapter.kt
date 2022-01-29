@@ -12,6 +12,9 @@ class ClientAdapter(
     private val client: List<ClientEntity>
 ) : RecyclerView.Adapter<ClientAdapter.ClientViewHolder>() {
 
+    var onItemClick: ((entity: ClientEntity) -> Unit)? = null
+    var onItemLongClick: ((entity: ClientEntity) -> Unit)? = null
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.client_list_holder, parent, false)
@@ -34,6 +37,15 @@ class ClientAdapter(
             tvCliName.text = client.name
             tvCliDate.text = client.date
             tvCliTotal.text = client.total.toString()
+
+            itemView.setOnClickListener {
+                onItemClick?.invoke(client)
+            }
+
+            itemView.setOnLongClickListener {
+                onItemLongClick?.invoke(client)
+                true
+            }
         }
     }
 }

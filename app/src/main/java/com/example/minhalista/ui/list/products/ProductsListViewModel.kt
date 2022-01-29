@@ -27,7 +27,6 @@ class ProductsListViewModel(
     fun deleteProd(id: Long) = viewModelScope.launch {
         try {
             if (id > 0){
-                prods.deleteProd(id)
                 _deleteProdEvent.postValue(prods.deleteProd(id))
             }
         } catch (ex: Exception) {}
