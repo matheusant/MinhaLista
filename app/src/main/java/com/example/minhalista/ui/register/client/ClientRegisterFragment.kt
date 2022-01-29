@@ -70,7 +70,7 @@ class ClientRegisterFragment : Fragment() {
 
     private fun setupUI() {
         binding.btnRegisterClient.setOnClickListener {
-            val sdf = SimpleDateFormat("dd/MM/yyyy hh:mm:ss")
+            val sdf = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
             val currentDate = sdf.format(Date())
             val name = binding.etCliName.text.toString()
 

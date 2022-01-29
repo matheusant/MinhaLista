@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/list_graph"
-    app:startDestination="@id/productsListFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/productsListFragment"
@@ -13,6 +13,11 @@
         <action
             android:id="@+id/action_productsListFragment_to_productRegisterFragment"
             app:destination="@id/productRegisterFragment" />
+        <argument
+            android:name="clients"
+            app:argType="com.example.minhalista.data.db.entity.ClientEntity"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/productRegisterFragment"
@@ -25,5 +30,34 @@
             app:nullable="true"
             android:defaultValue="@null" />
     </fragment>
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.example.minhalista.ui.home.HomeFragment"
+        android:label="Home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_productsListFragment"
+            app:destination="@id/productsListFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_clientListFragment2"
+            app:destination="@id/clientListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientListFragment"
+        android:name="com.example.minhalista.ui.list.client.ClientListFragment"
+        android:label="Clientes"
+        tools:layout="@layout/client_list_fragment" >
+        <action
+            android:id="@+id/action_clientListFragment_to_clientRegisterFragment"
+            app:destination="@id/clientRegisterFragment" />
+        <action
+            android:id="@+id/action_clientListFragment_to_productsListFragment"
+            app:destination="@id/productsListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientRegisterFragment"
+        android:name="com.example.minhalista.ui.register.client.ClientRegisterFragment"
+        android:label="Cliente"
+        tools:layout="@layout/client_register_fragment" />
 
 </navigation>

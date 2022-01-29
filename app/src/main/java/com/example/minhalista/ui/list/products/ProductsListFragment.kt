@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.minhalista.R
 import com.example.minhalista.data.db.AppDatabase
 import com.example.minhalista.data.db.dao.ProductDAO
@@ -31,6 +32,8 @@ class ProductsListFragment : Fragment() {
             }
         }
     }
+
+    private val args: ProductsListFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +82,13 @@ class ProductsListFragment : Fragment() {
     }
 
     private fun setupUI() {
-
+        args.clients?.let { client ->
+            if (client.id > 0) {
+                binding.fbCalc.visibility = View.VISIBLE
+            } else {
+                binding.fbCalc.visibility = View.GONE
+            }
+        }
     }
 
     private fun deleteProd(id: Long) {
