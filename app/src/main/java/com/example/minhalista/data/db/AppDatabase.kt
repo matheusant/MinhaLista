@@ -4,13 +4,17 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.minhalista.data.db.dao.ClientDAO
 import com.example.minhalista.data.db.dao.ProductDAO
+import com.example.minhalista.data.db.entity.ClientEntity
 import com.example.minhalista.data.db.entity.ProductsEntity
 
-@Database(entities = [ProductsEntity::class], version = 1)
+@Database(entities = [ProductsEntity::class, ClientEntity::class], version = 2)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract val prodsDao: ProductDAO
+
+    abstract val clientDao: ClientDAO
 
     companion object {
 
@@ -27,7 +31,9 @@ abstract class AppDatabase: RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
-                ).build()
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
                 INSTANCE = instance
                 return instance
             }

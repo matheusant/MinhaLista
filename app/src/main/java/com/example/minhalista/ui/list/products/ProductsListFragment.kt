@@ -25,8 +25,8 @@ class ProductsListFragment : Fragment() {
     private val viewModel: ProductsListViewModel by viewModels {
         object : ViewModelProvider.Factory {
             override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                val prodsDao: ProductDAO = AppDatabase.getDatabase(requireContext()).prodsDao
-                val repository: ProductRepository = DatabaseDataSource(prodsDao)
+                val database = AppDatabase.getDatabase(requireContext())
+                val repository: ProductRepository = DatabaseDataSource(database)
                 return ProductsListViewModel(repository) as T
             }
         }
