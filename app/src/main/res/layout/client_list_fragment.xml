@@ -35,24 +35,13 @@
             android:id="@+id/fb_add"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:src="@drawable/ic_add"
             app:fabSize="mini"
             app:fab_colorNormal="#367C25"
             app:fab_colorPressed="#266817"
             app:fab_colorRipple="#195b09"
             app:fab_label="Adicionar"
             app:fab_shadowColor="#43FD00"
-            app:fab_showShadow="true" />
-
-        <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/fb_delete_all"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:fabSize="mini"
-            app:fab_colorNormal="#B22318"
-            app:fab_colorPressed="#E8004A"
-            app:fab_colorRipple="#C20024"
-            app:fab_label="Deletar tudo"
-            app:fab_shadowColor="#FF0000"
             app:fab_showShadow="true" />
 
     </com.github.clans.fab.FloatingActionMenu>
