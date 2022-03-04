@@ -23,4 +23,7 @@ interface ProductDAO {
 
     @Query("SELECT * FROM products")
     suspend fun getAll(): List<ProductsEntity>
+
+    @Query("SELECT * FROM products WHERE id_client = :id_client")
+    suspend fun getAllById(id_client: Long): List<ProductsEntity>
 }

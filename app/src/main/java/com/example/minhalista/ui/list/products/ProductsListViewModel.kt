@@ -16,12 +16,20 @@ class ProductsListViewModel(
     val allProdsEvent: LiveData<List<ProductsEntity>>
         get() = _allProdsEvent
 
+    private val _allClientsProdsEvent = MutableLiveData<List<ProductsEntity>>()
+    val allClientsProdsEvent: LiveData<List<ProductsEntity>>
+        get() = _allClientsProdsEvent
+
     private val _deleteProdEvent = MutableLiveData<Unit>()
     val deleteProdEvent: LiveData<Unit>
         get() = _deleteProdEvent
 
     fun getAllProds() = viewModelScope.launch {
         _allProdsEvent.postValue(prods.getAllProds())
+    }
+
+    fun getClientProds(id_client: Long) = viewModelScope.launch {
+        _allClientsProdsEvent.postValue(prods.getClientProds(id_client))
     }
 
     fun deleteProd(id: Long) = viewModelScope.launch {

@@ -26,6 +26,18 @@ class ProductsRegisterViewModel(
         }
     }
 
+    fun insertClientProds(name: String, price: Double, id_client: Long) = viewModelScope.launch {
+        try {
+            val cId = prods.insertClientProds(name, price, id_client)
+            if (cId > 0) {
+                _prodsStateEventData.value = ProdState.Inserted
+                _messageEventData.value = "Produto inserido com sucesso"
+            }
+        } catch (ex: Exception) {
+            _messageEventData.value = "Erro ao inserir"
+        }
+    }
+
     private fun insertProduct(name: String, price: Double) = viewModelScope.launch {
         try {
             val id = prods.insertProds(name, price)

@@ -78,17 +78,25 @@ class ProductsListFragment : Fragment() {
     }
 
     private fun refreshList() {
-        viewModel.getAllProds()
+//        args.clients?.let { client ->
+//            if (client.id > 0) {
+//                viewModel.getClientProds(client.id)
+//                binding.fbCalc.visibility = View.VISIBLE
+//            } else {
+//                viewModel.getAllProds()
+//            }
+//        }
+        val client = args.clients
+        if (client?.id != null && client.id > 0) {
+            viewModel.getClientProds(client.id)
+            binding.fbCalc.visibility = View.VISIBLE
+        } else {
+            viewModel.getAllProds()
+        }
     }
 
     private fun setupUI() {
-        args.clients?.let { client ->
-            if (client.id > 0) {
-                binding.fbCalc.visibility = View.VISIBLE
-            } else {
-                binding.fbCalc.visibility = View.GONE
-            }
-        }
+
     }
 
     private fun deleteProd(id: Long) {

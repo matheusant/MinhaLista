@@ -6,6 +6,8 @@ interface ProductRepository {
 
     suspend fun insertProds(name: String, price: Double): Long
 
+    suspend fun insertClientProds(name: String, price: Double, id_client: Long): Long
+
     suspend fun updateProds(id: Long, name: String, price: Double)
 
     suspend fun deleteProd(id: Long)
@@ -13,4 +15,6 @@ interface ProductRepository {
     suspend fun deleteAllProds()
 
     suspend fun getAllProds(): List<ProductsEntity>
+
+    suspend fun getClientProds(id_client: Long): List<ProductsEntity>
 }
