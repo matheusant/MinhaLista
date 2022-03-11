@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.minhalista.data.db.entity.ProductsEntity
 import com.example.minhalista.repository.ProductRepository
 import kotlinx.coroutines.launch
 
@@ -17,6 +18,10 @@ class ProductsRegisterViewModel(
     private val _messageEventData = MutableLiveData<String>()
     val messageEventData: LiveData<String>
         get() = _messageEventData
+
+    private val _allProdsEvent = MutableLiveData<List<ProductsEntity>>()
+    val allProdsEvent: LiveData<List<ProductsEntity>>
+        get() = _allProdsEvent
 
     fun addOrUpdateProducts(name: String, price: Double, id: Long = 0) = viewModelScope.launch {
         if (id > 0) {
@@ -58,6 +63,10 @@ class ProductsRegisterViewModel(
         } catch (ex: Exception) {
             _messageEventData.value = "Erro ao atualizar"
         }
+    }
+
+    fun getAllProds() = viewModelScope.launch {
+        _allProdsEvent.postValue(prods.getAllProds())
     }
 
     sealed class ProdState {

@@ -1,15 +1,12 @@
 package com.example.minhalista.data.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.example.minhalista.data.db.entity.ProductsEntity
 
 @Dao
 interface ProductDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(prod: ProductsEntity): Long
 
     @Update
@@ -21,7 +18,7 @@ interface ProductDAO {
     @Query("DELETE FROM products")
     suspend fun deleteAll()
 
-    @Query("SELECT * FROM products")
+    @Query("SELECT * FROM products WHERE id_client = 0")
     suspend fun getAll(): List<ProductsEntity>
 
     @Query("SELECT * FROM products WHERE id_client = :id_client")

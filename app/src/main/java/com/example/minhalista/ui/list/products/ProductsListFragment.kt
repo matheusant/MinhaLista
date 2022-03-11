@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +23,7 @@ import com.example.minhalista.repository.ProductRepository
 class ProductsListFragment : Fragment() {
 
     private lateinit var binding: ProductsListFragmentBinding
+    private var idClient: Long = 0
 
     private val viewModel: ProductsListViewModel by viewModels {
         object : ViewModelProvider.Factory {
@@ -72,23 +74,27 @@ class ProductsListFragment : Fragment() {
             }
         }
 
+        viewModel.allClientsProdsEvent.observe(viewLifecycleOwner) { getClientsProds ->
+            val cliAdapter = ProductAdapter(getClientsProds).apply {
+                onItemClick = { prodsClient ->
+                    Toast.makeText(requireContext(), prodsClient.name, Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            binding.rvProductList.run {
+                setHasFixedSize(true)
+                adapter = cliAdapter
+            }
+        }
+
         viewModel.deleteProdEvent.observe(viewLifecycleOwner) {
             refreshList()
         }
     }
 
     private fun refreshList() {
-//        args.clients?.let { client ->
-//            if (client.id > 0) {
-//                viewModel.getClientProds(client.id)
-//                binding.fbCalc.visibility = View.VISIBLE
-//            } else {
-//                viewModel.getAllProds()
-//            }
-//        }
-        val client = args.clients
-        if (client?.id != null && client.id > 0) {
-            viewModel.getClientProds(client.id)
+        if (idClient > 0) {
+            viewModel.getClientProds(idClient)
             binding.fbCalc.visibility = View.VISIBLE
         } else {
             viewModel.getAllProds()
@@ -96,7 +102,10 @@ class ProductsListFragment : Fragment() {
     }
 
     private fun setupUI() {
-
+        args.clients?.id?.let {
+            idClient = it
+        }
+        print(idClient)
     }
 
     private fun deleteProd(id: Long) {
@@ -110,7 +119,13 @@ class ProductsListFragment : Fragment() {
 
     private fun setListeners() {
         binding.fbAdd.setOnClickListener {
-            findNavController().navigateWithAnimations(R.id.action_productsListFragment_to_productRegisterFragment)
+            if (idClient > 0) {
+                val directions = ProductsListFragmentDirections
+                    .actionProductsListFragmentToProductRegisterFragment(idClient = idClient)
+                findNavController().navigateWithAnimations(directions)
+            } else {
+                findNavController().navigateWithAnimations(R.id.action_productsListFragment_to_productRegisterFragment)
+            }
         }
     }
 }

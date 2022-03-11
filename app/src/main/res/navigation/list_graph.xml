@@ -29,6 +29,10 @@
             app:argType="com.example.minhalista.data.db.entity.ProductsEntity"
             app:nullable="true"
             android:defaultValue="@null" />
+        <argument
+            android:name="idClient"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
     <fragment
         android:id="@+id/homeFragment"

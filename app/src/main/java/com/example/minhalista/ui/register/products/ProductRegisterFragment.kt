@@ -13,16 +13,17 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.minhalista.data.db.AppDatabase
-import com.example.minhalista.data.db.dao.ProductDAO
 import com.example.minhalista.databinding.ProductRegisterFragmentBinding
 import com.example.minhalista.extensions.hideKeyboard
 import com.example.minhalista.repository.DatabaseDataSource
 import com.example.minhalista.repository.ProductRepository
+import com.example.minhalista.ui.list.products.ProductAdapter
 import com.google.android.material.snackbar.Snackbar
 
 class ProductRegisterFragment : Fragment() {
 
     private lateinit var binding: ProductRegisterFragmentBinding
+    private var idClient: Long = 0
 
     private val viewModel: ProductsRegisterViewModel by viewModels {
         object : ViewModelProvider.Factory {
@@ -50,8 +51,7 @@ class ProductRegisterFragment : Fragment() {
         setObserves()
         setupUI()
         setListeners()
-        val id = args.products?.id_client
-        print(id)
+        print(idClient)
     }
 
     private fun setListeners() {
@@ -77,17 +77,53 @@ class ProductRegisterFragment : Fragment() {
             }
         }
 
-        viewModel.messageEventData.observe(viewLifecycleOwner) {
-            Snackbar.make(requireView(), it, Snackbar.LENGTH_SHORT).show()
+        viewModel.messageEventData.observe(viewLifecycleOwner) { message ->
+            Snackbar.make(requireView(), message, Snackbar.LENGTH_SHORT).show()
+        }
+
+        viewModel.allProdsEvent.observe(viewLifecycleOwner) { getProds ->
+            val cliAdapter = ProductAdapter(getProds).apply {
+                onItemClick = { prods ->
+                    addClientProduct(prods.name, prods.price, idClient)
+                }
+            }
+
+            binding.rvItemsList.run {
+                setHasFixedSize(true)
+                adapter = cliAdapter
+            }
         }
     }
 
     private fun setupUI() {
+        idClient = args.idClient
+
         args.products?.let { products ->
             binding.btnRegister.text = "Atualizar"
             binding.etName.setText(products.name)
             binding.etPrice.setText(products.price.toString())
         }
+
+        if (idClient > 0) {
+            binding.clRegisterItem.visibility = View.GONE
+            binding.rvItemsList.visibility = View.VISIBLE
+        } else {
+            binding.clRegisterItem.visibility = View.VISIBLE
+            binding.rvItemsList.visibility = View.GONE
+        }
+    }
+
+    private fun refreshList() {
+        viewModel.getAllProds()
+    }
+
+    private fun addClientProduct(name: String, price: Double, idClient: Long) {
+        viewModel.insertClientProds(name, price, idClient)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        refreshList()
     }
 
     private fun clearFields() {
