@@ -17,6 +17,7 @@ import com.example.minhalista.extensions.navigateWithAnimations
 import com.example.minhalista.repository.ClientRepository
 import com.example.minhalista.repository.DatabaseDataSource
 import com.example.minhalista.repository.ProductRepository
+import com.example.minhalista.ui.home.HomeFragmentDirections
 import com.example.minhalista.ui.list.products.ProductsListViewModel
 
 class ClientListFragment : Fragment() {
@@ -56,6 +57,11 @@ class ClientListFragment : Fragment() {
             val clientAdapter = ClientAdapter(getClients).apply {
                 onItemLongClick = {
                     deleteClient(it.id)
+                }
+
+                onItemClick = {
+                    val directions = ClientListFragmentDirections.actionClientListFragmentToProductsListFragment(it)
+                    findNavController().navigateWithAnimations(directions)
                 }
             }
 

@@ -11,5 +11,6 @@ data class ProductsEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
     val name: String,
-    val price: Double
+    val price: Double,
+    val id_client: Long = 0
 ) : Parcelable

@@ -16,6 +16,16 @@ class DatabaseDataSource(
         return database.prodsDao.insert(prod)
     }
 
+    override suspend fun insertClientProds(name: String, price: Double, id_client: Long): Long {
+        val cProd = ProductsEntity(
+            name = name,
+            price = price,
+            id_client = id_client
+        )
+
+        return database.prodsDao.insert(cProd)
+    }
+
     override suspend fun updateProds(id: Long, name: String, price: Double) {
         val prod = ProductsEntity(
             id = id,
@@ -36,6 +46,10 @@ class DatabaseDataSource(
 
     override suspend fun getAllProds(): List<ProductsEntity> {
         return database.prodsDao.getAll()
+    }
+
+    override suspend fun getClientProds(id_client: Long): List<ProductsEntity> {
+        return database.prodsDao.getAllById(id_client)
     }
 
     override suspend fun insertClient(name: String, date: String): Long {
