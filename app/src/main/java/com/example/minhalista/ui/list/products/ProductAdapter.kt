@@ -7,8 +7,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.minhalista.R
 import com.example.minhalista.data.db.entity.ProductsEntity
-import java.text.DecimalFormat
-import kotlin.math.roundToInt
 
 class ProductAdapter(
     private val products: List<ProductsEntity>

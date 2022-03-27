@@ -4,11 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.minhalista.data.db.AppDatabase
 import com.example.minhalista.data.db.entity.ClientEntity
 import com.example.minhalista.repository.ClientRepository
 import kotlinx.coroutines.launch
-import java.lang.Exception
 
 class ClientListViewModel(
     private val client: ClientRepository

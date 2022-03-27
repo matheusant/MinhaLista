@@ -1,12 +1,11 @@
 package com.example.minhalista.ui.list.products
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.view.forEach
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.minhalista.R
 import com.example.minhalista.data.db.AppDatabase
-import com.example.minhalista.data.db.dao.ProductDAO
 import com.example.minhalista.data.db.entity.ProductsEntity
 import com.example.minhalista.databinding.ProductsListFragmentBinding
 import com.example.minhalista.extensions.navigateWithAnimations
@@ -78,7 +76,6 @@ class ProductsListFragment : Fragment() {
 
         viewModel.allClientsProdsEvent.observe(viewLifecycleOwner) { getClientsProds ->
             products = getClientsProds
-            print(products)
             val cliAdapter = ProductAdapter(getClientsProds).apply {
                 onItemClick = { prodsClient ->
                     Toast.makeText(requireContext(), prodsClient.name, Toast.LENGTH_SHORT).show()
@@ -109,14 +106,11 @@ class ProductsListFragment : Fragment() {
         args.clients?.id?.let {
             idClient = it
         }
-        print(idClient)
     }
 
     fun calcProds(): Double {
         val pAdapter = ProductAdapter(products)
         val total = pAdapter.grandTotal()
-
-        Toast.makeText(requireContext(), total.toString(), Toast.LENGTH_SHORT).show()
         return total
     }
 

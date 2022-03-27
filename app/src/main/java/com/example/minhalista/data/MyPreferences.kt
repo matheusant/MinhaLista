@@ -1,7 +1,6 @@
 package com.example.minhalista.data
 
 import android.content.Context
-import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
 class MyPreferences(context: Context) {

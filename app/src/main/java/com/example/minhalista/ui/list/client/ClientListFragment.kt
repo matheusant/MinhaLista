@@ -1,27 +1,21 @@
 package com.example.minhalista.ui.list.client
 
-import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.minhalista.R
 import com.example.minhalista.data.db.AppDatabase
-import com.example.minhalista.data.db.entity.ClientEntity
 import com.example.minhalista.databinding.ClientListFragmentBinding
 import com.example.minhalista.extensions.navigateWithAnimations
 import com.example.minhalista.repository.ClientRepository
 import com.example.minhalista.repository.DatabaseDataSource
-import com.example.minhalista.repository.ProductRepository
 import com.example.minhalista.ui.ListActivity
-import com.example.minhalista.ui.home.HomeFragmentDirections
-import com.example.minhalista.ui.list.products.ProductsListFragment
-import com.example.minhalista.ui.list.products.ProductsListViewModel
 
 class ClientListFragment : Fragment() {
 
