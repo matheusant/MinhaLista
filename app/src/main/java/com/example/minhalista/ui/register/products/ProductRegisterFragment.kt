@@ -51,7 +51,6 @@ class ProductRegisterFragment : Fragment() {
         setObserves()
         setupUI()
         setListeners()
-        print(idClient)
     }
 
     private fun setListeners() {

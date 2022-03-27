@@ -60,12 +60,8 @@ class DatabaseDataSource(
         return database.clientDao.insert(client)
     }
 
-    override suspend fun updateClient(id: Long, name: String, date: String) {
-        val client = ClientEntity(
-            name = name,
-            date = date
-        )
-        database.clientDao.update(client)
+    override suspend fun updateClient(total: Double, id: Long) {
+        database.clientDao.update(total, id)
     }
 
     override suspend fun deleteClient(id: Long) {

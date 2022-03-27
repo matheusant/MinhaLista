@@ -4,7 +4,6 @@ import android.content.Context
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.getSystemService
 
 fun AppCompatActivity.hideKeyboard() {
     val view = this.currentFocus

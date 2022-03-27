@@ -6,7 +6,7 @@ interface ClientRepository {
 
     suspend fun insertClient(name: String, date: String): Long
 
-    suspend fun updateClient(id: Long, name: String, date: String)
+    suspend fun updateClient(total: Double, id: Long)
 
     suspend fun deleteClient(id: Long)
 

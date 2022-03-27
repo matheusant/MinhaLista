@@ -1,11 +1,11 @@
 package com.example.minhalista.ui.list.products
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -13,17 +13,18 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.minhalista.R
 import com.example.minhalista.data.db.AppDatabase
-import com.example.minhalista.data.db.dao.ProductDAO
 import com.example.minhalista.data.db.entity.ProductsEntity
 import com.example.minhalista.databinding.ProductsListFragmentBinding
 import com.example.minhalista.extensions.navigateWithAnimations
 import com.example.minhalista.repository.DatabaseDataSource
 import com.example.minhalista.repository.ProductRepository
+import com.example.minhalista.ui.ListActivity
 
 class ProductsListFragment : Fragment() {
 
     private lateinit var binding: ProductsListFragmentBinding
     private var idClient: Long = 0
+    private lateinit var products: List<ProductsEntity>
 
     private val viewModel: ProductsListViewModel by viewModels {
         object : ViewModelProvider.Factory {
@@ -56,7 +57,6 @@ class ProductsListFragment : Fragment() {
     private fun setObserves() {
         viewModel.allProdsEvent.observe(viewLifecycleOwner) { getProds ->
             val prodAdapter = ProductAdapter(getProds).apply {
-
                 onItemClick = { prods ->
                     val directions = ProductsListFragmentDirections
                         .actionProductsListFragmentToProductRegisterFragment(prods)
@@ -75,6 +75,7 @@ class ProductsListFragment : Fragment() {
         }
 
         viewModel.allClientsProdsEvent.observe(viewLifecycleOwner) { getClientsProds ->
+            products = getClientsProds
             val cliAdapter = ProductAdapter(getClientsProds).apply {
                 onItemClick = { prodsClient ->
                     Toast.makeText(requireContext(), prodsClient.name, Toast.LENGTH_SHORT).show()
@@ -105,7 +106,12 @@ class ProductsListFragment : Fragment() {
         args.clients?.id?.let {
             idClient = it
         }
-        print(idClient)
+    }
+
+    fun calcProds(): Double {
+        val pAdapter = ProductAdapter(products)
+        val total = pAdapter.grandTotal()
+        return total
     }
 
     private fun deleteProd(id: Long) {
@@ -126,6 +132,12 @@ class ProductsListFragment : Fragment() {
             } else {
                 findNavController().navigateWithAnimations(R.id.action_productsListFragment_to_productRegisterFragment)
             }
+        }
+
+        binding.fbCalc.setOnClickListener {
+            val act = (activity as ListActivity)
+            act.clientTotal = calcProds()
+            act.clientID = idClient
         }
     }
 }
