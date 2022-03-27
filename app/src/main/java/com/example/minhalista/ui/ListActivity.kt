@@ -15,6 +15,8 @@ class ListActivity: AppCompatActivity() {
     private lateinit var binding: ActivityListBinding
     private lateinit var navController: NavController
     private lateinit var appBarConfig: AppBarConfiguration
+    var clientTotal: Double = 0.0
+    var clientID: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

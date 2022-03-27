@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
@@ -17,7 +18,9 @@ import com.example.minhalista.extensions.navigateWithAnimations
 import com.example.minhalista.repository.ClientRepository
 import com.example.minhalista.repository.DatabaseDataSource
 import com.example.minhalista.repository.ProductRepository
+import com.example.minhalista.ui.ListActivity
 import com.example.minhalista.ui.home.HomeFragmentDirections
+import com.example.minhalista.ui.list.products.ProductsListFragment
 import com.example.minhalista.ui.list.products.ProductsListViewModel
 
 class ClientListFragment : Fragment() {
@@ -74,6 +77,10 @@ class ClientListFragment : Fragment() {
         viewModel.deleteEventData.observe(viewLifecycleOwner) {
             refreshList()
         }
+
+        viewModel.updateEventData.observe(viewLifecycleOwner) {
+            refreshList()
+        }
     }
 
     private fun deleteClient(id: Long) {
@@ -82,8 +89,20 @@ class ClientListFragment : Fragment() {
 
     private fun refreshList() = viewModel.getAllClients()
 
+    private fun updateTotal(total: Double, id: Long) {
+        viewModel.updateTotal(total, id)
+    }
+
+    private fun refreshTotal() {
+        val act = (activity as ListActivity)
+        val cID = act.clientID
+        val cTotal = act.clientTotal
+        updateTotal(cTotal, cID)
+    }
+
     override fun onResume() {
         super.onResume()
         refreshList()
+        refreshTotal()
     }
 }

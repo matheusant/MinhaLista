@@ -9,7 +9,7 @@ import com.example.minhalista.data.db.dao.ProductDAO
 import com.example.minhalista.data.db.entity.ClientEntity
 import com.example.minhalista.data.db.entity.ProductsEntity
 
-@Database(entities = [ProductsEntity::class, ClientEntity::class], version = 3)
+@Database(entities = [ProductsEntity::class, ClientEntity::class], version = 4)
 abstract class AppDatabase: RoomDatabase() {
 
     abstract val prodsDao: ProductDAO

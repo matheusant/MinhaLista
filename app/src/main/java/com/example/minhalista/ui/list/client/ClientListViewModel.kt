@@ -22,8 +22,16 @@ class ClientListViewModel(
     val deleteEventData: LiveData<Unit>
         get() = _deleteEventData
 
+    private val _updateEventData = MutableLiveData<Unit>()
+    val updateEventData: LiveData<Unit>
+        get() = _updateEventData
+
     fun getAllClients() = viewModelScope.launch {
         _allClientEventData.postValue(client.getAllClients())
+    }
+
+    fun updateTotal(total: Double, id: Long) = viewModelScope.launch {
+        _updateEventData.postValue(client.updateClient(total, id))
     }
 
     fun deleteClient(id: Long) = viewModelScope.launch {

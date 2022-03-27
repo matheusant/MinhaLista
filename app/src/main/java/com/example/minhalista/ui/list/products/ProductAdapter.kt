@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.minhalista.R
 import com.example.minhalista.data.db.entity.ProductsEntity
 import java.text.DecimalFormat
+import kotlin.math.roundToInt
 
 class ProductAdapter(
     private val products: List<ProductsEntity>
@@ -29,6 +30,14 @@ class ProductAdapter(
 
     override fun getItemCount() = products.size
 
+    fun grandTotal() : Double {
+        var totalPrice = 0.0
+        for (i in products.indices) {
+            totalPrice += products[i].price
+        }
+        return totalPrice
+    }
+
     inner class ProductViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
 
         private val tvProdName: TextView = itemView.findViewById(R.id.tv_prod_name)
@@ -37,7 +46,7 @@ class ProductAdapter(
         fun bindHolder(prods: ProductsEntity) {
             val price = String.format("%.2f", prods.price).replace(".", ",")
             tvProdName.text = prods.name
-            tvProdPrice.text = price
+            tvProdPrice.text = "R$ $price"
 
             itemView.setOnClickListener {
                 onItemClick?.invoke(prods)

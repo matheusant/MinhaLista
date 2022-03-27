@@ -34,9 +34,10 @@ class ClientAdapter(
         val tvCliTotal: TextView = itemView.findViewById(R.id.tv_cli_total)
 
         fun bindHolder(client: ClientEntity) {
+            val total = String.format("%.2f", client.total).replace(".", ",")
             tvCliName.text = client.name
             tvCliDate.text = client.date
-            tvCliTotal.text = client.total.toString()
+            tvCliTotal.text = "R$ $total"
 
             itemView.setOnClickListener {
                 onItemClick?.invoke(client)
