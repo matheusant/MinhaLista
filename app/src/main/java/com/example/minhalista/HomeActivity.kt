@@ -26,7 +26,6 @@ class HomeActivity : AppCompatActivity() {
     private fun setupUI() {
         binding.btnChangeTheme.setOnClickListener { chooseThemeDialog() }
         binding.btnNext.setOnClickListener { nextActivity(ListActivity::class.java) }
-//        checboxChoseTheme()
     }
 
     private fun nextActivity(activity: Class<*>) {

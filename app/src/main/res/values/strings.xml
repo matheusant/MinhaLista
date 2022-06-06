@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">MinhaLista</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="change_theme_title">Troca de tema</string>
+    <string name="next">próximo</string>
+    <string name="change_theme">Mudar Tema</string>
+    <string name="hint_name">Nome</string>
+    <string name="register">Cadastrar</string>
+    <string name="home">Home</string>
+    <string name="products">Produtos</string>
+    <string name="clients">Clientes</string>
+    <string name="hint_price">Preço</string>
 </resources>

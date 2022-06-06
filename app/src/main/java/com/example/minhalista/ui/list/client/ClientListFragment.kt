@@ -1,5 +1,7 @@
 package com.example.minhalista.ui.list.client
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -78,7 +80,13 @@ class ClientListFragment : Fragment() {
     }
 
     private fun deleteClient(id: Long) {
-        viewModel.deleteClient(id)
+        val builder = AlertDialog.Builder(requireContext()).also {
+            it.setTitle("Deseja deletar esse cliente?")
+            it.setPositiveButton("Sim") { _, _ -> viewModel.deleteClient(id) }
+            it.setNegativeButton("Não", null)
+        }
+        val dialog = builder.create()
+        dialog.show()
     }
 
     private fun refreshList() = viewModel.getAllClients()

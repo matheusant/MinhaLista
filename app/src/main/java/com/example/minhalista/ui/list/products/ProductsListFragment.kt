@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.minhalista.HomeActivity
 import com.example.minhalista.R
 import com.example.minhalista.data.db.AppDatabase
 import com.example.minhalista.data.db.entity.ProductsEntity
@@ -97,6 +98,7 @@ class ProductsListFragment : Fragment() {
         if (idClient > 0) {
             viewModel.getClientProds(idClient)
             binding.fbCalc.visibility = View.VISIBLE
+            (activity as ListActivity).supportActionBar?.title = "Produtos de ${args.clients?.name}"
         } else {
             viewModel.getAllProds()
         }
