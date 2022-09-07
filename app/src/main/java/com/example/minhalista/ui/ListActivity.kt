@@ -10,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.minhalista.R
 import com.example.minhalista.databinding.ActivityListBinding
 
-class ListActivity: AppCompatActivity() {
+class ListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListBinding
     private lateinit var navController: NavController
@@ -25,7 +25,8 @@ class ListActivity: AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appToolbar)
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
         appBarConfig = AppBarConfiguration(navController.graph)
         setupActionBarWithNavController(navController, appBarConfig)
