@@ -1,13 +1,20 @@
 package com.example.minhalista
 
-import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.etebarian.meowbottomnavigation.MeowBottomNavigation
 import com.example.minhalista.data.MyPreferences
 import com.example.minhalista.databinding.ActivityHomeBinding
-import com.example.minhalista.ui.ListActivity
+import com.example.minhalista.ui.SettingsFragment
+import com.example.minhalista.ui.ShoppingFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -24,49 +31,43 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.btnChangeTheme.setOnClickListener { chooseThemeDialog() }
-        binding.btnNext.setOnClickListener { nextActivity(ListActivity::class.java) }
-    }
 
-    private fun nextActivity(activity: Class<*>) {
-        val intent = Intent(this, activity)
-        startActivity(intent)
-    }
+        val bottomNav = binding.bottomNav
+        bottomNav.add(MeowBottomNavigation.Model(1, R.drawable.ic_monetization_on_24))
+        bottomNav.add(MeowBottomNavigation.Model(2, R.drawable.ic_settings_24))
+        bottomNav.add(MeowBottomNavigation.Model(3, R.drawable.ic_map_24))
+        bottomNav.add(MeowBottomNavigation.Model(4, R.drawable.ic_shopping_cart_24))
+        bottomNav.add(MeowBottomNavigation.Model(5, R.drawable.ic_notifications_24))
 
-    private fun chooseThemeDialog() {
+        bottomNav.setCount(5, "15")
 
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Escolha um tema")
-        val styles = arrayOf("Padrão do Sistema", "Escuro", "Claro")
-        val checkedItem = MyPreferences(this).darkMode
-
-        builder.setSingleChoiceItems(styles, checkedItem) { dialog, which ->
-
-            when (which) {
-                0 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-                    MyPreferences(this).darkMode = 0
-                    delegate.applyDayNight()
-                    dialog.dismiss()
-                }
-                1 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-                    MyPreferences(this).darkMode = 1
-                    delegate.applyDayNight()
-                    dialog.dismiss()
-                }
-                2 -> {
-                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-                    MyPreferences(this).darkMode = 2
-                    delegate.applyDayNight()
-                    dialog.dismiss()
-                }
+        bottomNav.setOnShowListener {
+            var fragment: Fragment? = null
+            when (it.id) {
+                1 -> fragment = ShoppingFragment()
+                2 -> fragment = SettingsFragment()
+                3 -> fragment = ShoppingFragment()
+                4 -> fragment = SettingsFragment()
+                5 -> fragment = ShoppingFragment()
             }
+            loadFragment(fragment)
+        }
+        bottomNav.show(3, true)
 
+        bottomNav.setOnClickMenuListener {
+//            Toast.makeText(this, "Você clicou em ${it.id}", Toast.LENGTH_SHORT).show()
         }
 
-        val dialog = builder.create()
-        dialog.show()
+        bottomNav.setOnReselectListener {
+//            Toast.makeText(this, "Você re-clicou em ${it.id}", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun loadFragment(fragment: Fragment?) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fv_container, fragment!!, null)
+            .commit()
     }
 
 //    private fun checboxChoseTheme() {
