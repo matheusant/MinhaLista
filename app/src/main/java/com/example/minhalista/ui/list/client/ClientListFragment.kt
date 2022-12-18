@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.example.minhalista.HomeActivity
 import com.example.minhalista.R
 import com.example.minhalista.data.db.AppDatabase
 import com.example.minhalista.databinding.ClientListFragmentBinding
@@ -96,7 +97,7 @@ class ClientListFragment : Fragment() {
     }
 
     private fun refreshTotal() {
-        val act = (activity as ListActivity)
+        val act = (activity as HomeActivity)
         val cID = act.clientID
         val cTotal = act.clientTotal
         updateTotal(cTotal, cID)

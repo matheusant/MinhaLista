@@ -98,7 +98,7 @@ class ProductsListFragment : Fragment() {
         if (idClient > 0) {
             viewModel.getClientProds(idClient)
             binding.fbCalc.visibility = View.VISIBLE
-            (activity as ListActivity).supportActionBar?.title = "Produtos de ${args.clients?.name}"
+            (activity as HomeActivity).supportActionBar?.title = "Produtos de ${args.clients?.name}"
         } else {
             viewModel.getAllProds()
         }
@@ -137,9 +137,10 @@ class ProductsListFragment : Fragment() {
         }
 
         binding.fbCalc.setOnClickListener {
-            val act = (activity as ListActivity)
+            val act = (activity as HomeActivity)
             act.clientTotal = calcProds()
             act.clientID = idClient
+            findNavController().navigateUp()
         }
     }
 }
